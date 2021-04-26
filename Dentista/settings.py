@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import sys
 import os
+import django_heroku
+import dj_database_url
+from decouple import config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -74,6 +77,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'Dentista.urls'
@@ -150,6 +154,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 # myaccount.google.com/lesssecureapps
 # accounts.google.com/DisplayUnlockCaptcha
 
@@ -162,3 +168,6 @@ EMAIL_HOST_USER = 'djangotest62@gmail.com'
 EMAIL_HOST_PASSWORD = 'testdjango_99'
 EMAIL_USE_TLS = True
 # EMAIL_USE_SSL = False
+
+
+django_heroku.settings(locals())
